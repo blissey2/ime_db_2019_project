@@ -11,13 +11,6 @@ Base = declarative_base()
 
 
 
-
-# total_info_association = Table(
-#     'total_info', Base.metadata,
-#     Column('movie_id', Integer, ForeignKey('movies.id')),
-#     Column('actor_id', Integer, ForeignKey('actors.id'))
-# )
-
 class Categories_Detail(Base):                    # 카테고리 테이블
     __tablename__ = 'categories_detail'
 
@@ -69,3 +62,13 @@ class Category(Base):                                # 종목 구분
 
 class Information(Base):                            # 종합 정보
     __tablename__ = 'informations'
+
+    unique_num=Column(integer, primary_key=True)
+    name=Column(string(200))
+    fee=Column(Integer)
+    map=folium.Map(location=[X좌표,Y좌표],zoom_start=13)
+
+    def __init__(self,name,fee,map):
+        self.name=name
+        self.fee=fee
+        self.map=map
