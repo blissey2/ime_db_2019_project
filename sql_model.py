@@ -10,6 +10,7 @@ Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
+
 # total_info_association = Table(
 #     'total_info', Base.metadata,
 #     Column('movie_id', Integer, ForeignKey('movies.id')),
@@ -20,6 +21,26 @@ Base = declarative_base()
 class Region(Base):                                  # 지역 구분
     __tablename__ = 'regions'
 
+    GIGU = column(string(32))
+    TEL = column(string(32))
+    region_id = column(string(32), ForeignKey('regoin_details.region_id'))
+
+    def __init__(self, GIGU, TEL):
+
+        self.GIGU = GIGU
+        self.TEL = TEL
+
+
+class Region_detail(Base):
+    __tablename__ = 'region_details'
+
+    region_id = column(Integer(), primary_key=True)
+    region_name = column(string(32))
+
+    def __init__(self, region_id, region_name):
+
+        self.region_id = region_id
+        self.region_name = region_name
 
 
 
