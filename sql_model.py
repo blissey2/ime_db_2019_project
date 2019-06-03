@@ -10,13 +10,15 @@ Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
-class Categories_Detail(Base):
+class Categories_Detail(Base):                    # 카테고리 테이블
     __tablename__ = 'categories_detail'
 
     category_id = Column(Integer(),primary_key=True)
     category_name = Column(String(32))
 
-    def __init__
+    def __init__(self,category_id,category_name):
+        self.category_id = category_id
+        self.category_name = category_name
 
 
 class Region(Base):                                  # 지역 구분
