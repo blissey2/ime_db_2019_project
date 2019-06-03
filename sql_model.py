@@ -9,65 +9,50 @@ engine = create_engine('mysql+pymysql://aws 주소')
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
-
-class Categories_Detail(Base):                    # 카테고리 테이블
-    __tablename__ = 'categories_detail'
-
-    category_id = Column(Integer(),primary_key=True)
-    category_name = Column(String(32))
-
-    def __init__(self,category_id,category_name):
-        self.category_id = category_id
-        self.category_name = category_name
+info_association = Table(
+    'total_information', Base.metadata,
+    Column('RegionID', String(32), ForeignKey('regions.Code')),
+    Column('CategoryID', String(32), ForeignKey('categories.Code')),
+    Column('InfoID', Integer, ForeignKey('informations.ID'))
+)
 
 
 class Region(Base):                                  # 지역 구분
     __tablename__ = 'regions'
 
-    GIGU = Column(String(32))
-    TEL = Column(String(32))
-    region_id = Column(String(32), ForeignKey('regoin_details.region_id'))
+    Code = Column(String(32), primary_key=True)
+    Latitude = Column(Integer)
+    Longitude = Column(Integer)
 
-    def __init__(self, GIGU, TEL):
+    def __init__(self, Code, Latitude, Longitude):
 
-        self.GIGU = GIGU
-        self.TEL = TEL
-
-
-class Region_detail(Base):
-    __tablename__ = 'region_details'
-
-    region_id = Column(Integer(), primary_key=True)
-    region_name = Column(String(32))
-
-    def __init__(self, region_id, region_name):
-
-        self.region_id = region_id
-        self.region_name = region_name
+        self.Code = Code
+        self.Latitude = Latitude
+        self.Longitude = Longitude
 
 
 
 class Category(Base):                                # 종목 구분
     __tablename__ = 'categories'
 
-    FTC = Column(String(32), primary_key=True)                          ## 지형지물코드
-    category_id = Column(Integer(), ForeignKey('categories_detail_as.category_id')) ## 카테고리이름
-    #지구구분코드 = Column(integer,ForeignKey('Region.지구구분코드') )
-    #이 부분은 혹시 지구구분콛 외래키로 연결해야하는지 몰라서 적어둠.
+    Code = Column(String(32), primary_key=True)
+    name = Column(String(32))
 
-    def __init__(self, FTC, name):
-        self.FTC = FTC
+    def __init__(self, Code, name):
+        self.Code = Code
         self.name = name
+
 
 class Information(Base):                            # 종합 정보
     __tablename__ = 'informations'
 
-    unique_num=Column(integer, primary_key=True)
-    name=Column(string(200))
-    fee=Column(Integer)
-    map=folium.Map(location=[X좌표,Y좌표],zoom_start=13)
+    ID = Column(Integer, primary_key=True)
+    name = Column(String(64))
+    TEL = Column(String(64))
+    fare = Column(String(256))
 
-    def __init__(self,name,fee,map):
-        self.name=name
-        self.fee=fee
-        self.map=map
+    def __init__(self, ID, name, TEL, fare):
+        self.ID = ID
+        self.name = name
+        self.TEL = TEL
+        self.fare = fare
