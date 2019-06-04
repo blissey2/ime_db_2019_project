@@ -1,31 +1,31 @@
 import sys
 import ChatBotModel
 
-def proc_rolling(bot, update):
-    bot.sendMessage('데구르르..')
-    sound = firecracker()
-    bot.sendMessage(sound)
-    bot.sendMessage('르르..')
+def start(bot, update):
+    gang.sendMessage('안녕하세요? 가천대학교 ibe_2019_프로젝트 한강지구 운동시설 찾기 봇입니다. ')
+    gang.sendMessage('사용법을 위해 /help를 입력해주세요.')
 
-def proc_study(bot, update):
-    bot.sendMessage('공부를 해라!!!')
-    print(update)
+def help(bot, update):
+    gang.sendMessage('지구구분코드 : \n\
+                    GIGU001 : 잠실, GIGU002 : 광나루, GIGU003 : 뚝섬 \n\
+                        GIGU004 : 잠원, GIGU005 : 반포, GIGU006 : 이촌 \n\
+                        GIGU007 : 여의도, GIGU009 : 양화, GIGU010 : 난지\n\
+                        GIGU011 : 망원, GIGU012 : 망원')
+    gang.sendMessage('지형지물코드 : \n\
+                        ABB003 : Tennis1, AB003 : Tennis2, ABB100 : Baseball \n\
+                        ABB109 : Gateball, AAB104 : Basketball, ABB101 : Volleyball \n\
+                        ABB102 : Badminton, ABB201 : WaterLeisure, ABB012 : Pool \n\
+                        AAB670 : lnlineSkate1, ADA037 : InlineSkate2, ABB112 : Jokgu')
 
-def proc_stop(bot, update):
-    bot.sendMessage('봇이 잠듭니다.')
-    bot.stop()
-
-# def proc_start(bot, update):
-#     bot.sendMessage('안녕하세요.')
-#     bot.start()
+def stop(bot, update):
+    gang.sendMessage('감사합니다. 또 찾아주세요!')
+    gang.stop()
 
 def firecracker():
     return '팡팡!'
 
-bot = ChatBotModel.HangangBot()
-bot.add_handler('rolling', proc_rolling)
-bot.add_handler('study', proc_study)
-bot.add_handler('stop', proc_stop)
-bot.send_location(chat_id: '', latitude: '', longitude: '')
-# bot.add_handler('start', proc_start)
-bot.start()
+gang = ChatBotModel.HangangBot()
+gang.add_handler('start', start)
+gang.add_handler('help', help)
+gang.add_handler('stop', stop)
+gang.start()
